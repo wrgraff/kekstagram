@@ -1,0 +1,23 @@
+{
+  "name": "kekstagram",
+  "version": "1.0.0",
+  "description": "Learning project",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wrgraff/kekstagram.git"
+  },
+  "author": "Artur Trifonov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wrgraff/kekstagram/issues"
+  },
+  "homepage": "https://github.com/wrgraff/kekstagram#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2"
+  }
+}
