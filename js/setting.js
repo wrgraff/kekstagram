@@ -9,7 +9,7 @@
 		resizeButtons = document.querySelectorAll('.upload-resize-controls-button');
 	var imageSize = 1,
 		activeEffect = 'none';
-
+uploadWindow.classList.remove('hidden');
 	// Upload pictures window
 	uploadInput.addEventListener('change', openUploadWindow);
 	closeUploadWindowButton.addEventListener('click', closeUploadWindow);
@@ -17,6 +17,7 @@
 	function openUploadWindow() {
 		uploadWindow.classList.remove('hidden');
 		setSize(imageSize);
+		setEffect(1);
 		document.addEventListener('keydown', uploadWindowCloseHandler);
 	};
 	function closeUploadWindow() {
@@ -74,10 +75,45 @@
 
 	// Saturation slider
 	var sliderLine = document.querySelector('.upload-effect-level-line'),
-		sliderPin = document.querySelector('.upload-effect-level-pin');
+		sliderPin = document.querySelector('.upload-effect-level-pin'),
+		sliderVal = document.querySelector('.upload-effect-level-val');
 
-	sliderPin.addEventListener('mouseup', () => {
-		var intense = Math.round(sliderPin.offsetLeft / sliderLine.offsetWidth * 100) / 100;
-		imagePreview.style.filter = applyEffect(intense);
+	sliderPin.addEventListener('mousedown', (evt) => {
+		evt.preventDefault();
+
+		document.addEventListener('mousemove', moveMouseHandler);
+		document.addEventListener('mouseup', upMouseHandler);
+
+		var currentPosition = evt.clientX;
+		var pinPosition = sliderPin.offsetLeft;
+
+		function moveMouseHandler(moveEvt) {
+			moveEvt.preventDefault();
+
+			var shift = moveEvt.clientX - currentPosition;
+			var newPosition = pinPosition + shift;
+			var intense = Math.round(sliderPin.offsetLeft / sliderLine.offsetWidth * 100) / 100;
+
+			if (newPosition >= 0 && newPosition <= sliderLine.offsetWidth) {
+				setEffect(intense, newPosition);
+			};
+		};
+
+		function upMouseHandler(upEvt) {
+			upEvt.preventDefault();
+			document.removeEventListener('mousemove', moveMouseHandler);
+			document.removeEventListener('mouseup', upMouseHandler);
+		};
 	});
+
+	function setEffect(intense, position) {
+		if (position) {
+			sliderPin.style.left = position + 'px';
+			sliderVal.style.width = position + 'px';
+		} else {
+			sliderPin.style.left = '100%';
+			sliderVal.style.width = '100%';
+		};
+		imagePreview.style.filter = applyEffect(intense);
+	};
 })();
