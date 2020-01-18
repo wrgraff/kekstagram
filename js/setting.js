@@ -9,7 +9,7 @@
 		resizeButtons = document.querySelectorAll('.upload-resize-controls-button');
 	var imageSize = 1,
 		activeEffect = 'none';
-uploadWindow.classList.remove('hidden');
+
 	// Upload pictures window
 	uploadInput.addEventListener('change', openUploadWindow);
 	closeUploadWindowButton.addEventListener('click', closeUploadWindow);
@@ -17,7 +17,7 @@ uploadWindow.classList.remove('hidden');
 	function openUploadWindow() {
 		uploadWindow.classList.remove('hidden');
 		setSize(imageSize);
-		setEffect(1);
+		setSlider(1);
 		document.addEventListener('keydown', uploadWindowCloseHandler);
 	};
 	function closeUploadWindow() {
@@ -38,6 +38,7 @@ uploadWindow.classList.remove('hidden');
 		imageEffectControls[i].addEventListener('click', (evt) => {
 			activeEffect = evt.target.id;
 			imagePreview.style.filter = applyEffect(1);
+			setSlider(1);
 		});
 	};
 
@@ -95,7 +96,7 @@ uploadWindow.classList.remove('hidden');
 			var intense = Math.round(sliderPin.offsetLeft / sliderLine.offsetWidth * 100) / 100;
 
 			if (newPosition >= 0 && newPosition <= sliderLine.offsetWidth) {
-				setEffect(intense, newPosition);
+				setSlider(intense, newPosition);
 			};
 		};
 
@@ -106,7 +107,7 @@ uploadWindow.classList.remove('hidden');
 		};
 	});
 
-	function setEffect(intense, position) {
+	function setSlider(intense, position) {
 		if (position) {
 			sliderPin.style.left = position + 'px';
 			sliderVal.style.width = position + 'px';
