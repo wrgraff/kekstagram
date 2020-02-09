@@ -2,6 +2,7 @@
 
 (function() {
 	var uploadInput = document.querySelector('.upload-input'),
+		uploadForm = document.querySelector('.upload-form'),
 		uploadWindow = document.querySelector('.upload-overlay'),
 		closeUploadWindowButton = uploadWindow.querySelector('.upload-form-cancel');
 
@@ -14,12 +15,20 @@
 	uploadInput.addEventListener('change', openUploadWindow);
 	closeUploadWindowButton.addEventListener('click', closeUploadWindow);
 
+	// Submit action
+	uploadForm.addEventListener('submit', function(evt) {
+		window.backend.save(new FormData(uploadForm), closeUploadWindow, function(errorText) {
+			console.log(errorText);
+		});
+		evt.preventDefault();
+	});
+
 	function openUploadWindow() {
-		console.log('!');
-		
 		uploadWindow.classList.remove('hidden');
-		setSize(imageSize);
+		activeEffect = 'none';
+		setSize(1);
 		setSlider(1);
+		applyEffect(0);
 		document.addEventListener('keydown', uploadWindowCloseHandler);
 	};
 	function closeUploadWindow() {

@@ -4,19 +4,26 @@
 	var picturesContainer = document.querySelector('.pictures'),
 		bigPictureContainer = document.querySelector('.big-picture'),
 		closeBigPictureButton = bigPictureContainer.querySelector('.big-picture__cancel');
-	var pictures = window.data.pictures;
 
-	for (var i = 0; i < pictures.length; i++) {
-		var picture = pictures[i],
-			pictureElement = window.picture.create(pictures[i]);
+	window.backend.load(successHandler, errorHandler);
 
-		pictureClickHandler(picture);
-		picturesContainer.append(pictureElement);
+	function successHandler(data) {
+		for (var i = 0; i < data.length; i++) {
+			var picture = data[i],
+				pictureElement = window.picture.create(data[i]);
+	
+			pictureClickHandler(picture, pictureElement);
+			picturesContainer.append(pictureElement);
+		};
+	};
+
+	function errorHandler(errorText) {
+		console.log(errorText);
 	};
 
 	closeBigPictureButton.addEventListener('click', closeBigPicture);
 
-	function pictureClickHandler(picture) {
+	function pictureClickHandler(picture, pictureElement) {
 		pictureElement.addEventListener('click', (evt) => {
 			evt.preventDefault();
 			window.bigPicture.setup(picture);
