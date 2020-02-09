@@ -10,9 +10,12 @@
 	};
 
 	function setupBigPicture(picture) {
+		console.log(picture.url);
+		
 		bigPictureContainer.querySelector('.big-picture__img img').src = picture.url;
 		bigPictureContainer.querySelector('.likes-count').textContent = picture.likes;
 		bigPictureContainer.querySelector('.comments-count').textContent = picture.comments.length;
+		bigPictureContainer.querySelector('.social__comments').innerHTML = '';
 		bigPictureContainer.querySelector('.social__comments').append(addComments(picture.comments));
 		bigPictureContainer.querySelector('.social__caption').textContent = picture.description;
 	};

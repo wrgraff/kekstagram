@@ -1,7 +1,6 @@
 'use strict';
 
 (function() {
-	document.querySelector('.upload-overlay').classList.remove('hidden');
 	var hashtagsInput = document.querySelector('.upload-form-hashtags');
 	hashtagsInput.addEventListener('blur', function(evt) {
 		var input = evt.target;

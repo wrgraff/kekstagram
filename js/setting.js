@@ -15,6 +15,8 @@
 	closeUploadWindowButton.addEventListener('click', closeUploadWindow);
 
 	function openUploadWindow() {
+		console.log('!');
+		
 		uploadWindow.classList.remove('hidden');
 		setSize(imageSize);
 		setSlider(1);

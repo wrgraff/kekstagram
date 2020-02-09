@@ -10,16 +10,19 @@
 		var picture = pictures[i],
 			pictureElement = window.picture.create(pictures[i]);
 
-		pictureElement.addEventListener('click', (evt) => {
-			evt.preventDefault();
-			window.bigPicture.setup(picture);
-			openBigPicture();
-		});
+		pictureClickHandler(picture);
 		picturesContainer.append(pictureElement);
 	};
 
 	closeBigPictureButton.addEventListener('click', closeBigPicture);
 
+	function pictureClickHandler(picture) {
+		pictureElement.addEventListener('click', (evt) => {
+			evt.preventDefault();
+			window.bigPicture.setup(picture);
+			openBigPicture();
+		});
+	};
 	function openBigPicture() {
 		bigPictureContainer.classList.remove('hidden');
 		document.addEventListener('keydown', bigPictureCloseHandler);
